@@ -19,11 +19,6 @@ export default class Country extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasManyThrough([() => Post, () => User], {
-    throughForeignKey: 'userId',
-    foreignKey: 'countryId',
-    throughLocalKey: 'id',
-    //  serializeAs: 'userId',
-  })
+  @hasManyThrough([() => Post, () => User])
   public posts: HasManyThrough<typeof Post>
 }

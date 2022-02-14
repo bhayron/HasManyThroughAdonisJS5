@@ -7,7 +7,9 @@ export default class UsersController {
   public async index({ response }: HttpContextContract) {
     const country = await Country.query().preload('posts')
 
-    return response.ok({ country })
+    const users = await User.query().preload('posts')
+
+    return response.ok({ country, users })
   }
   public async CountryRegister({ request, response }: HttpContextContract) {
     const data = request.only(['name', 'locale'])
@@ -17,7 +19,7 @@ export default class UsersController {
     return response.created({ user })
   }
   public async UserRegister({ request, response }: HttpContextContract) {
-    const data = request.only(['email', 'password'])
+    const data = request.only(['countryId', 'email', 'password'])
 
     const user = await User.create(data)
 

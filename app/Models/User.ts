@@ -1,7 +1,16 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  hasMany,
+  HasMany,
+  hasOne,
+  HasOne,
+  belongsTo,
+  BelongsTo,
+} from '@ioc:Adonis/Lucid/Orm'
 import Post from './Post'
-import Countries from 'Database/migrations/1644544755173_countries'
+import Country from './Country'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -22,6 +31,9 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  // @hasMany(() => Post)
-  // public posts: HasMany<typeof Post>
+  @belongsTo(() => Country)
+  public countrys: BelongsTo<typeof Country>
+
+  @hasMany(() => Post)
+  public posts: HasMany<typeof Post>
 }
